@@ -1,4 +1,4 @@
-# Lab: Automated Data Engineering with GitHub Copilot CLI + Databricks
+# Lab: Automated Data Engineering with GitHub Copilot + Databricks
 
 > **You are on the `lab` branch.** The completed reference (generated notebooks + full walkthrough) lives on [`main`](https://github.com/MaxBush6299/ghcp-databricks-de-lab/tree/main).
 
@@ -6,7 +6,7 @@
 
 ## What you'll build
 
-A **Formula 1 medallion lakehouse** in Databricks — entirely through conversation with GitHub Copilot CLI.
+A **Formula 1 medallion lakehouse** in Databricks — entirely through conversation with GitHub Copilot.
 
 Starting from 60 raw CSV files across 14 seasons, you'll end up with:
 
@@ -26,7 +26,7 @@ You'll also discover two real data quality issues mid-lab and craft the prompts 
 
 Before you start, confirm:
 
-- [ ] **GitHub Copilot CLI** installed and signed in to your GitHub account (Copilot licence required)
+- [ ] **GitHub Copilot** active in VS Code (Individual, Business, or Enterprise subscription) with agent mode available — see [`SETUP.md`](./SETUP.md) Step 1
 - [ ] **Visual Studio Code** open in this repo's root folder
 - [ ] **AI Dev Kit installed** and MCP server showing green — see [`SETUP.md`](./SETUP.md)
 - [ ] **Databricks workspace URL** on hand (format: `https://adb-XXXXXXX.azuredatabricks.net`)
@@ -50,7 +50,7 @@ If it's red, go back to [`SETUP.md`](./SETUP.md) — troubleshooting section.
 
 ## Prompt 1 — Plan and build
 
-Open a Copilot CLI session in the VS Code terminal and run this prompt:
+Open **Copilot Chat** in VS Code (`Ctrl+Alt+I`), switch to **Agent mode**, and run this prompt:
 
 ```
 /plan please review the datasets available in the formula1-datasets folder and help me plan

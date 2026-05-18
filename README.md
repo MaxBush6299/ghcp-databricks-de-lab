@@ -1,12 +1,12 @@
 # GitHub Copilot + Databricks: Automated Data Engineering — Lab
 
-> This is the **hands-on lab branch**. You'll build a production-ready Formula 1 medallion lakehouse from scratch by prompting GitHub Copilot CLI — discovering real data quality issues along the way and crafting the prompts to fix them.
+> This is the **hands-on lab branch**. You'll build a production-ready Formula 1 medallion lakehouse from scratch by prompting GitHub Copilot — discovering real data quality issues along the way and crafting the prompts to fix them.
 
 ---
 
 ## What you'll build
 
-Starting from **60 raw CSV files** spanning 14 seasons of Formula 1 data, you'll use GitHub Copilot CLI to:
+Starting from **60 raw CSV files** spanning 14 seasons of Formula 1 data, you'll use GitHub Copilot to:
 
 - Create a Unity Catalog medallion architecture (Bronze → Silver → Gold) in Databricks
 - Clean and normalise messy team names — catching at least one data anomaly yourself
@@ -30,7 +30,7 @@ Starting from **60 raw CSV files** spanning 14 seasons of Formula 1 data, you'll
 ## Prerequisites
 
 - Windows 10/11
-- GitHub Copilot CLI installed and authenticated
+- **GitHub Copilot** subscription (Individual, Business, or Enterprise) with VS Code agent mode
 - Visual Studio Code with the GitHub Copilot extension
 - An Azure Databricks workspace with Unity Catalog enabled and permission to create catalogs/warehouses
 
