@@ -1,6 +1,6 @@
 # Lab: Automated Data Engineering with GitHub Copilot CLI + Databricks
 
-> **You are on the `lab` branch.** The completed reference (generated notebooks + full walkthrough) lives on [`main`](../../tree/main).
+> **You are on the `lab` branch.** The completed reference (generated notebooks + full walkthrough) lives on [`main`](https://github.com/MaxBush6299/ghcp-databricks-de-lab/tree/main).
 
 ---
 
@@ -335,4 +335,4 @@ Compare the `lab` branch to `main` to see exactly what Copilot generated:
 git diff main lab -- notebooks/
 ```
 
-Or browse the `main` branch on GitHub and read [`SOLUTION.md`](../../blob/main/SOLUTION.md) for the full phase-by-phase narrative with Copilot callouts.
+Or browse the `main` branch on GitHub and read [`SOLUTION.md`](https://github.com/MaxBush6299/ghcp-databricks-de-lab/blob/main/SOLUTION.md) for the full phase-by-phase narrative with Copilot callouts.

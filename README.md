@@ -14,7 +14,7 @@ Starting from **60 raw CSV files** spanning 14 seasons of Formula 1 data, you'll
 - Fill in historical data gaps using a public API — but only after you spot the problem
 - Publish a live AI/BI dashboard in the Databricks workspace
 
-**The generated notebooks are not included here.** Copilot writes them during the lab. If you want to see the reference output, check the [`main` branch](../../tree/main).
+**The generated notebooks are not included here.** Copilot writes them during the lab. If you want to see the reference output, check the [`main` branch](https://github.com/MaxBush6299/ghcp-databricks-de-lab/tree/main).
 
 ---
 
@@ -23,7 +23,7 @@ Starting from **60 raw CSV files** spanning 14 seasons of Formula 1 data, you'll
 | Branch | What it contains |
 |---|---|
 | **`lab`** (you are here) | Starter — follow `LAB.md` to run the exercise |
-| **[`main`](../../tree/main)** | Completed reference — `SOLUTION.md` + generated notebooks |
+| **[`main`](https://github.com/MaxBush6299/ghcp-databricks-de-lab/tree/main)** | Completed reference — `SOLUTION.md` + generated notebooks |
 
 ---
 
@@ -67,7 +67,7 @@ Every action was performed by Copilot via tool calls in the terminal. No copy-pa
 | Branch | What it contains | Who it's for |
 |---|---|---|
 | **`main`** (you are here) | Completed reference — `SOLUTION.md`, generated notebooks, full scaffolding | Reviewing what the agent produced |
-| **[`lab`](../../tree/lab)** | Starter — `LAB.md` guided walkthrough, no pre-generated notebooks | Running the exercise yourself |
+| **[`lab`](https://github.com/MaxBush6299/ghcp-databricks-de-lab/tree/lab)** | Starter — `LAB.md` guided walkthrough, no pre-generated notebooks | Running the exercise yourself |
 
 If you want to **do** the lab, switch to the `lab` branch and follow `LAB.md`. Use `git diff main lab` at any point to see exactly what the agent produced.
 
