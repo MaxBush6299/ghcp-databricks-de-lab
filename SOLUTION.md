@@ -1,6 +1,6 @@
 # Automated Data Engineering with GitHub Copilot CLI + Databricks
 
-> **This is the completed reference.** The hands-on lab lives on the [lab branch](../../tree/lab).
+> **This is the completed reference.** The hands-on lab lives on the [`lab` branch](https://github.com/MaxBush6299/ghcp-databricks-de-lab/tree/lab).
 > If you want to run through the exercise yourself — discovering the data quality gaps and crafting the remediation prompts — start there.
 
 ---

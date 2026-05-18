@@ -27,7 +27,7 @@ Every action was performed by Copilot via tool calls in the terminal. No copy-pa
 | Branch | What it contains | Who it's for |
 |---|---|---|
 | **`main`** (you are here) | Completed reference — `SOLUTION.md`, generated notebooks, full scaffolding | Reviewing what the agent produced |
-| **[`lab`](../../tree/lab)** | Starter — `LAB.md` guided walkthrough, no pre-generated notebooks | Running the exercise yourself |
+| **[`lab`](https://github.com/MaxBush6299/ghcp-databricks-de-lab/tree/lab)** | Starter — `LAB.md` guided walkthrough, no pre-generated notebooks | Running the exercise yourself |
 
 If you want to **do** the lab, switch to the `lab` branch and follow `LAB.md`. Use `git diff main lab` at any point to see exactly what the agent produced.
 
