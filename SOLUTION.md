@@ -1,11 +1,11 @@
-# Automated Data Engineering with GitHub Copilot CLI + Databricks
+# Automated Data Engineering with GitHub Copilot + Databricks
 
 > **This is the completed reference.** The hands-on lab lives on the [`lab` branch](https://github.com/MaxBush6299/ghcp-databricks-de-lab/tree/lab).
 > If you want to run through the exercise yourself — discovering the data quality gaps and crafting the remediation prompts — start there.
 
 ---
 
-> A walk-through of building a Formula 1 Lakehouse from raw CSVs to a snowflake-schema gold layer — entirely through natural-language conversation with GitHub Copilot CLI.
+> A walk-through of building a Formula 1 Lakehouse from raw CSVs to a snowflake-schema gold layer — entirely through natural-language conversation with GitHub Copilot.
 
 ## Audience & Purpose
 
@@ -499,7 +499,7 @@ formula1.gold
 ## Suggested Demo Flow
 
 1. **Show the empty workspace** in the Databricks UI.
-2. **Open Copilot CLI** in a terminal and run the initial prompt (see *Recommended Prompts → Prompt 1*). The upgraded Prompt 1 includes profiling + remediation proposals, so the agent will surface the calendar gap during planning and propose fetching from the Jolpica API.
+2. **Open Copilot Chat** in VS Code (`Ctrl+Alt+I`), switch to **Agent mode**, and run the initial prompt (see *Recommended Prompts → Prompt 1*). The upgraded Prompt 1 includes profiling + remediation proposals, so the agent will surface the calendar gap during planning and propose fetching from the Jolpica API.
 3. **Review the plan** — point out the profiling output and the remediation proposals. Approve them, then say *"proceed!"*
 4. **Refresh the workspace** between phases to show schemas, volumes, and tables appearing live.
 5. **Inspect the bronze tables** — point out the metadata columns and how schema merging worked across seasons with different headers.
@@ -513,4 +513,4 @@ formula1.gold
 
 ---
 
-*Generated during a live GitHub Copilot CLI session on a Databricks workspace. All commands shown were executed by the agent in real time.*
+*Generated during a live GitHub Copilot session on a Databricks workspace. All commands shown were executed by the agent in real time.*

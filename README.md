@@ -1,12 +1,12 @@
 # GitHub Copilot + Databricks: Automated Data Engineering
 
-> Build a production-ready Formula 1 medallion lakehouse — **Bronze → Silver → Gold** with a full snowflake dimensional model and an AI/BI dashboard — entirely through natural-language conversation with GitHub Copilot CLI.
+> Build a production-ready Formula 1 medallion lakehouse — **Bronze → Silver → Gold** with a full snowflake dimensional model and an AI/BI dashboard — entirely through natural-language conversation with GitHub Copilot.
 
 ---
 
 ## What is this?
 
-This repo demonstrates how far data engineering can be automated when an AI agent (GitHub Copilot CLI) has direct, governed access to a Databricks workspace via the Databricks MCP server.
+This repo demonstrates how far data engineering can be automated when an AI agent (GitHub Copilot) has direct, governed access to a Databricks workspace via the Databricks MCP server.
 
 Starting from **60 raw CSV files** spanning 14 seasons of Formula 1 data, Copilot:
 
@@ -36,7 +36,7 @@ If you want to **do** the lab, switch to the `lab` branch and follow `LAB.md`. U
 ## Prerequisites
 
 - Windows 10/11
-- [GitHub Copilot CLI](https://docs.github.com/en/copilot/using-github-copilot/using-copilot-coding-agent-to-work-on-tasks) installed and authenticated
+- **[GitHub Copilot](https://docs.github.com/en/copilot)** subscription (Individual, Business, or Enterprise) with VS Code agent mode
 - [Visual Studio Code](https://code.visualstudio.com/) with the GitHub Copilot extension
 - An Azure Databricks workspace with:
   - Unity Catalog enabled
@@ -55,7 +55,7 @@ Raw CSV files are from the open-source Formula 1 dataset maintained by **[@toUpp
 
 ## Tooling
 
-This repo uses the **[Databricks AI Dev Kit](https://github.com/databricks-solutions/ai-dev-kit)** — a collection of Databricks-specific skills and an MCP server that give Copilot CLI direct, governed access to your workspace.
+This repo uses the **[Databricks AI Dev Kit](https://github.com/databricks-solutions/ai-dev-kit)** — a collection of Databricks-specific skills and an MCP server that give Copilot direct, governed access to your workspace.
 
 Install it with a single command (see [`SETUP.md`](./SETUP.md)).
 

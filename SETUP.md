@@ -4,15 +4,23 @@ Follow these steps once before running the lab. Estimated time: **10–15 minute
 
 ---
 
-## 1. Install GitHub Copilot CLI
+## 1. Set up GitHub Copilot in VS Code
 
-If you don't already have it:
+This lab uses **GitHub Copilot's agent mode** in VS Code — the same Copilot you already use for code completion and chat, with agentic multi-step task execution enabled.
 
-1. Install the [GitHub Copilot extension for VS Code](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)
-2. Sign in with your GitHub account (must have a Copilot licence)
-3. Open a terminal in VS Code — you should be able to run `gh copilot` or use the Copilot Chat panel
+You do **not** need a separate "GitHub Copilot CLI" tool. Everything runs inside VS Code.
 
-> The lab uses GitHub Copilot CLI (the terminal-based agentic mode), not just Copilot Chat. Make sure you can open a Copilot CLI session from the VS Code terminal.
+**What you need:**
+
+1. A **GitHub Copilot subscription** (Individual, Business, or Enterprise)
+2. VS Code with the **[GitHub Copilot](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)** and **[GitHub Copilot Chat](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot-chat)** extensions installed
+3. Sign in to your GitHub account in VS Code (`Ctrl+Shift+P` → **"GitHub: Sign In"**)
+
+**Verify agent mode is available:**
+
+Open Copilot Chat in VS Code (`Ctrl+Alt+I`). In the chat input, click the dropdown next to the send button — you should see an **"Agent"** mode option (sometimes labelled **"Claude"** or showing a model selector). If agent mode is available, you're ready.
+
+> Agent mode is included in all current Copilot plans. If you don't see it, make sure both extensions are up to date.
 
 ---
 
