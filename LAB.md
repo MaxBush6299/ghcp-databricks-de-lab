@@ -8,7 +8,7 @@
 
 A **Formula 1 medallion lakehouse** in Databricks — entirely through conversation with GitHub Copilot.
 
-Starting from 60 raw CSV files across 14 seasons, you'll end up with:
+Starting from the latest Formula 1 CSV dataset (50+ files spanning 14+ seasons — it grows as new races are run), you'll end up with:
 
 - A Unity Catalog hierarchy: `formula1.{raw, bronze, silver, gold}`
 - 9 Bronze Delta tables with schema-merged, metadata-enriched ingestion
@@ -29,6 +29,7 @@ Before you start, confirm:
 - [ ] **GitHub Copilot** active in VS Code (Individual, Business, or Enterprise subscription) with agent mode available — see [`SETUP.md`](./SETUP.md) Step 1
 - [ ] **Visual Studio Code** open in this repo's root folder
 - [ ] **AI Dev Kit installed** and MCP server showing green — see [`SETUP.md`](./SETUP.md)
+- [ ] **Formula 1 dataset cloned** into a `formula1-datasets/` folder in this repo — see [Get the Formula 1 data](#get-the-formula-1-data) below
 - [ ] **Databricks workspace URL** on hand (format: `https://adb-XXXXXXX.azuredatabricks.net`)
   - Unity Catalog must be enabled
   - You need permission to create catalogs, schemas, SQL warehouses, and volumes
@@ -45,6 +46,24 @@ Before running any prompts, confirm the Databricks MCP server is connected:
 3. Confirm `databricks` shows a **green** status indicator
 
 If it's red, go back to [`SETUP.md`](./SETUP.md) — troubleshooting section.
+
+---
+
+## Get the Formula 1 data
+
+The dataset is maintained upstream by [@toUpperCase78](https://github.com/toUpperCase78/formula1-datasets/tree/master) and is **updated frequently with new race results**, so you'll clone the latest copy rather than rely on a bundled snapshot.
+
+From the repo root, in a **PowerShell** terminal:
+
+```powershell
+git clone https://github.com/toUpperCase78/formula1-datasets.git
+```
+
+This creates a `formula1-datasets/` folder containing the latest CSVs. Prompt 1 points Copilot at this folder by name.
+
+> **Note:** Because you're pulling live data, exact row and file counts in this guide are approximate — the numbers will be a little higher than what's written here as more races are added each season. The data quality issues you'll fix (the two teaching moments) are structural and will still be present.
+
+> **Already have the folder?** If a previous run left a `formula1-datasets/` folder behind, delete it first (`Remove-Item -Recurse -Force formula1-datasets`) so the clone pulls a clean, current copy.
 
 ---
 
@@ -77,7 +96,7 @@ Copilot will work through the phases automatically:
 | Phase | What happens |
 |---|---|
 | Infrastructure | Creates `formula1` catalog, 4 schemas, UC volumes, SQL warehouse |
-| Bronze ingestion | Uploads 60 CSVs → 9 bronze Delta tables with schema merging + metadata |
+| Bronze ingestion | Uploads the CSVs → bronze Delta tables with schema merging + metadata |
 | Team name lookup | Builds `silver.team_name_lookup` — resolves 70+ raw team name variants |
 | Silver transform | Types, cleans, and normalises → 8 silver Delta tables |
 | Gold layer | Builds 7 dimensions, 1 bridge table, 5 fact tables |
@@ -203,7 +222,7 @@ FROM formula1.gold.fact_race_results
 WHERE round_key IS NULL;
 ```
 
-You should see approximately **2,971 rows** with no link to a calendar round — about half of all race results.
+You should see roughly **half** of all race results have no link to a calendar round — about 2,000–3,000 rows depending on how much current-season data you cloned.
 
 Also run:
 
@@ -277,7 +296,7 @@ FROM formula1.gold.fact_race_results
 GROUP BY season ORDER BY season;
 ```
 
-Nulls drop from **2,971 → 0**. All 14 seasons are now fully joined to the dimensional model.
+Nulls drop to **0**. All seasons are now fully joined to the dimensional model.
 
 > **Why this matters:** This is the most compelling pattern in the whole lab. Copilot fetched a public API, diagnosed data quality issues it found along the way, and rebuilt the fact table to be 100% FK-complete — all from a single prompt. No manual download, no spreadsheet work.
 

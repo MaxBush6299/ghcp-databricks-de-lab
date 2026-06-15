@@ -95,6 +95,24 @@ These profiles tell Copilot to load the Databricks data engineering and AI/ML sk
 
 ---
 
+## 7. Clone the Formula 1 dataset
+
+The lab uses the open-source Formula 1 dataset maintained by **[@toUpperCase78](https://github.com/toUpperCase78/formula1-datasets/tree/master)**. It's **updated frequently with new race results**, so clone the latest copy rather than using a bundled snapshot.
+
+From this repo's root folder, in PowerShell:
+
+```powershell
+git clone https://github.com/toUpperCase78/formula1-datasets.git
+```
+
+This creates a `formula1-datasets/` folder containing the latest CSVs. Prompt 1 in [`LAB.md`](./LAB.md) points Copilot at this folder by name.
+
+> If a `formula1-datasets/` folder already exists from a previous run, delete it first (`Remove-Item -Recurse -Force formula1-datasets`) so you pull a clean, current copy.
+>
+> The `formula1-datasets/` folder is intentionally **not** tracked in this repo (it's in `.gitignore`) so the lab always works against live data and we don't redistribute the dataset. Please credit the original author if you reuse the data.
+
+---
+
 ## Cost and cleanup
 
 The lab uses:
@@ -123,4 +141,4 @@ The `formula1` catalog will already exist. Either:
 - Check that `.vscode/mcp.json` was created in the repo root by the installer
 
 **"formula1-datasets folder not found" error**
-Make sure you cloned this repo (including the `formula1-datasets/` subdirectory) and opened the repo root as your VS Code workspace folder.
+Make sure you cloned the dataset into this repo's root (Step 7): `git clone https://github.com/toUpperCase78/formula1-datasets.git`, and that you opened the repo root as your VS Code workspace folder.

@@ -13,6 +13,10 @@ dashboard-check.png
 # Nested git repo in datasets folder
 formula1-datasets/.git/
 
+# Formula 1 dataset — cloned fresh per run from github.com/toUpperCase78/formula1-datasets
+# (updated frequently; not redistributed here)
+formula1-datasets/
+
 # Python
 .venv/
 __pycache__/
