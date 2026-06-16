@@ -18,7 +18,7 @@ Starting from the latest Formula 1 CSV dataset (50+ files spanning 14+ seasons �
 
 You'll also discover two real data quality issues mid-lab and craft the prompts to fix them yourself — that's the point.
 
-**Estimated time:** 60–90 minutes (most of it is watching Copilot work).
+**Estimated time:** 60–90 minutes (most of it is watching Copilot work). If you customize the plan with extras like SCD-2 dimensions, additional fact tables, or a deeper snowflake, expect closer to 2–3 hours.
 
 ---
 
@@ -77,7 +77,39 @@ how to migrate this to Databricks and unify the data in a medallion architecture
 Databricks workspace created for when it gets to that. My thought is creating a unified data
 model that has tables for drivers, races, teams, etc. Make sure to follow a snowflake schema
 if possible.
+
+A few engineering ground rules for whatever you build:
+
+1. Every dimension table must be unique on its surrogate key. End each dim with a
+   dropDuplicates() on the key as defense-in-depth, and add a quality check that asserts
+   the uniqueness for every dim.
+
+2. Snowflaked parent dims must also be unique on the column the child joins by (not just
+   on the surrogate key). If a child dim joins to a parent by name, the parent has to be
+   one-row-per-name or the child will fan out.
+
+3. When ingesting files into bronze, the file pattern must be specific enough that
+   related-but-different file families don't leak into each other. Substring matches on
+   things like "results" or "qualifying" are a common trap — prefer anchored patterns
+   with explicit anti-matches for the families you don't want.
+
+4. Any fact-to-dim join that depends on a time predicate (e.g., date-bounded versions of
+   a dim) must put the time predicate inside the JOIN condition, not in a post-filter
+   WHERE clause. A post-filter will silently drop fact rows that fall outside the dim's
+   known time windows instead of leaving the dim key NULL.
+
+5. Add a row-count parity check between silver and gold for any fact table that's a
+   pass-through transformation. If gold ≠ silver, something fanned out or got dropped.
+
+6. Add a small set of "known-truth" assertions to the quality checks — a handful of
+   historical results that anyone can verify — so the job fails fast if a join silently
+   inflates or deflates the data.
+
+Build the plan in whatever order makes sense, but please honor those six rules throughout.
+Walk me through the plan before you start executing.
 ```
+
+> **Why the extra ground rules?** They're general data-engineering principles that catch the most common silent failure modes (fan-out, type-2 join drift, glob contamination) at build time instead of letting them surface as mysterious row-count mismatches three hours later. None of them give away the teaching moments — those still require you to look at the data and push back on the agent.
 
 ### What to do when the plan appears
 
@@ -100,7 +132,7 @@ Copilot will work through the phases automatically:
 | Team name lookup | Builds `silver.team_name_lookup` — resolves 70+ raw team name variants |
 | Silver transform | Types, cleans, and normalises → 8 silver Delta tables |
 | Gold layer | Builds 7 dimensions, 1 bridge table, 5 fact tables |
-| Validation | Runs FK null checks and row count reconciliation |
+| Validation | Runs FK null checks, dim uniqueness assertions, silver↔gold parity, and known-truth checks |
 
 You can follow along in the terminal. This is a good time to open **Databricks Catalog Explorer** in your browser and watch the catalog, schemas, and tables appear in real time.
 
