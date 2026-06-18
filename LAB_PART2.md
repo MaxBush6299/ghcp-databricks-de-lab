@@ -73,10 +73,12 @@ Prompt 1 needs three values from Part 1. Grab them now and paste them into a scr
 
 Open **Copilot CLI** in your empty repo folder. Switch to **agent mode**. Paste the prompt below, **replacing the four `<...>` placeholders** with the values you captured above.
 
-The prompt is intentionally long. It's the same `[[PLAN]]` block from the companion `DEMO_SWA_TELEMETRY.md`, plus four **engineering ground rules** at the top — general rules that catch common silent failure modes when authoring AI/BI dashboards and shipping a SWA.
+The prompt is intentionally long. It's the same `[[PLAN]]` block from the companion `DEMO_SWA_TELEMETRY.md` (rewritten to start with `/plan` so you can paste it straight into Copilot Chat in agent mode), plus four **engineering ground rules** at the top — general rules that catch common silent failure modes when authoring AI/BI dashboards and shipping a SWA.
 
 ```
-[[PLAN]]
+/plan build an Azure Static Web App that serves as a branded "F1 Race Telemetry
+Command Center" shell embedding Databricks AI/BI dashboards and a Genie
+conversational panel over the formula1.gold.* medallion warehouse from Part 1.
 
 A few engineering ground rules for whatever you build:
 
@@ -96,10 +98,6 @@ A few engineering ground rules for whatever you build:
    Treat them as public. Dashboard embed URLs (which contain IDs, not data) belong here.
    PATs, client secrets, and anything else that grants Databricks access must live in
    SWA app settings only — never `VITE_*`.
-
-Build an Azure Static Web App that serves as a branded "F1 Race Telemetry
-Command Center" shell embedding Databricks AI/BI dashboards and a Genie
-conversational panel over an existing F1 medallion warehouse.
 
 STACK
 - React 18 + TypeScript + Vite
