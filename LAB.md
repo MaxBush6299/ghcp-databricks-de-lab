@@ -67,11 +67,62 @@ This creates a `formula1-datasets/` folder containing the latest CSVs. Prompt 1 
 
 ---
 
-## Prompt 1 — Plan and build
+## Prompt 1 — Data Profiling
 
-Open **Copilot Chat** in VS Code (`Ctrl+Alt+I`), switch to **Agent mode**, and run this prompt:
+Open **Copilot Chat** in VS Code (`Ctrl+Alt+I`), switch to **Agent mode**, and run this prompt. This step runs entirely locally — Copilot will generate and execute a Python script using pandas to profile the CSVs. No Databricks connection or MCP tools are needed.
 
 ```
+Profile formula1-datasets before we plan the lakehouse. Do not load Spark or touch
+Databricks — read the CSVs locally with pandas (nrows=5 is fine for shape; full read only
+for row counts).
+
+Produce a single DISCOVERY.md at the repo root with these sections, in this order:
+
+1. File inventory — table of every CSV: filename, row count, column count, inferred family
+   (race_results, qualifying, sprint_race, sprint_qualifying, calendar, drivers_season,
+   teams_season, driver_of_day, videogame_ratings), year.
+2. Filename collisions — any file whose name matches more than one plausible family regex.
+   For each, list the columns and 2 sample rows so we can decide routing by content, not
+   name. I specifically want to see formula1_2021season_sprintQualifyingResults.csv here.
+3. Schema drift per family — for each family, a matrix of year × columns showing which
+   columns appear in which year. Flag added/removed/renamed columns.
+4. Join-key shape — for Driver, Team, Track (or their per-file equivalents): distinct count
+   per year, plus 5 example values verbatim. Note any suffix patterns (e.g. Lewis Hamilton
+   HAM).
+5. Wide vs long — flag any file that's wide-format and will need unpivoting.
+6. Surprises — bulleted list of anything that will force a design decision (missing columns,
+   in-progress seasons with no driver/team snapshot, multiple snapshots per edition, encoding
+   oddities, etc.).
+
+Keep it under ~300 lines. No code blocks longer than 10 lines. No recommendations yet —
+just observations. We'll enter plan mode after I read it.
+```
+
+### What Copilot will do
+
+Copilot will write and run a local pandas script that reads all 50+ CSVs, classifies them into families, detects schema drift, and outputs a `DISCOVERY.md` file at the repo root. This typically takes 1–2 minutes.
+
+### 🔍 Checkpoint — Review DISCOVERY.md
+
+Open `DISCOVERY.md` in your editor and skim it:
+
+- **File inventory** — confirm all CSVs are accounted for and family assignments look correct
+- **Filename collisions** — check that `formula1_2021season_sprintQualifyingResults.csv` is flagged (sprint qualifying started in 2021 and the filename pattern overlaps with regular qualifying)
+- **Schema drift** — note any columns that appear/disappear across years
+- **Surprises** — these will inform the engineering ground rules in the next step
+
+> **Why this step matters:** The profiling gives Copilot (and you) a concrete understanding of the data landscape before making any design decisions. It catches naming collisions, schema drift, and encoding issues up front — problems that would otherwise surface as silent failures during bronze ingestion.
+
+---
+
+## Prompt 2 — Plan and build
+
+Open a **new Copilot Chat** in VS Code (`Ctrl+Alt+I`), switch to **Agent mode**, and run this prompt:
+
+```
+Refer to DISCOVERY.md at the repo root for the full data profile of the formula1-datasets
+folder.
+
 /plan please review the datasets available in the formula1-datasets folder and help me plan
 how to migrate this to Databricks and unify the data in a medallion architecture. I have a
 Databricks workspace created for when it gets to that. My thought is creating a unified data
@@ -119,7 +170,7 @@ Copilot will present a multi-step plan. **Review it, then approve it as written*
 proceed!
 ```
 
-> ⚠️ **Don't** ask Copilot to add profiling or remediation steps to the plan at this point. The data quality gaps are meant to surface naturally later in the lab — that's part of the exercise.
+> ⚠️ **Don't** ask Copilot to add additional profiling or remediation steps to the plan at this point. DISCOVERY.md already gave it the data landscape; the remaining data quality gaps are meant to surface naturally later in the lab — that's part of the exercise.
 
 ### What Copilot will do (this takes ~15–25 minutes)
 
@@ -282,7 +333,7 @@ A good prompt should:
 Try writing your own before looking at the reference.
 
 <details>
-<summary>📋 Reference prompt — Prompt 3 (click to reveal)</summary>
+<summary>📋 Reference prompt — Prompt 4 (click to reveal)</summary>
 
 ```
 Validation showed that fact_race_results has null round_key for ~50% of rows because
@@ -334,7 +385,7 @@ Nulls drop to **0**. All seasons are now fully joined to the dimensional model.
 
 ---
 
-## Prompt 2 — Build the dashboard
+## Prompt 3 — Build the dashboard
 
 Now the data is clean. Let's make it visible.
 
