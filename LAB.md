@@ -113,6 +113,44 @@ Open `DISCOVERY.md` in your editor and skim it:
 
 > **Why this step matters:** The profiling gives Copilot (and you) a concrete understanding of the data landscape before making any design decisions. It catches naming collisions, schema drift, and encoding issues up front — problems that would otherwise surface as silent failures during bronze ingestion.
 
+> **Why so prescriptive here?** Profiling is a bounded, one-shot deliverable with a downstream consumer — `DISCOVERY.md` feeds Prompt 2 — so a tight output contract is cheap and worth it. Contrast this with the open-ended build in Prompt 2, where the *same* density of rules starts to cost you. See the *Specification vs. Agency* aside just below for why a heavily specified prompt is the right call for a fixed-format deliverable but a riskier one for a long, generative build.
+
+---
+
+## 🧠 Prompt Engineering Aside — Specification vs. Agency
+
+The plan prompt in **Prompt 2** below is heavily *specified* — it carries six engineering ground rules. But that's not the only way to ask. Here are two versions of the same request. If you have time, **try both** (in separate fresh Copilot chats) and compare what the agent produces. There's no "correct" answer here — the point is to *feel* the tradeoff yourself.
+
+**Version A — Lean (high agency)**
+
+```
+/plan please review the datasets available in the formula1-datasets folder and help me plan
+how to migrate this to Databricks and unify the data in a medallion architecture. I have a
+Databricks workspace created for when it gets to that. My thought is creating a unified data
+model that has tables for drivers, races, teams, etc. Make sure to follow a snowflake schema
+if possible.
+```
+
+**Version B — Guardrailed (high specification)** — the full six-rule prompt in Prompt 2 below.
+
+### What you might observe
+
+- **Version A** tends to be faster, the plan reads cleaner, and the agent leans on its own judgment — but defensive quality checks are sparser, so you rely more on the lab's UI checkpoints to catch issues.
+- **Version B** encodes more data-engineering hygiene up front — but the rules are sometimes applied *less consistently* than you'd expect across a long build, and the agent occasionally adds defensive complexity it doesn't fully justify.
+
+Neither outcome is a failure. They're two points on the same dial.
+
+### Why this happens — in prompt-engineering terms
+
+| Effect | What's going on |
+| --- | --- |
+| **Instruction dilution** | Every added constraint competes for the model's finite attention. Past a threshold it silently drops some — and you can't predict which. |
+| **Attention decay** | A rule stated at the start of a 20-minute build is far out of context by the time the Gold layer is built, so it lands unevenly. |
+| **Specification vs. agency** | Prescribing *how* can suppress the model's own good judgment and introduce implicit contradictions. |
+| **Speculative complexity** | Abstract rules stated before the agent has seen a single join invite defensive code it applies mechanically rather than purposefully. |
+
+> **The takeaway:** constraints aren't free. Add a rule only when it earns its place — and prefer phrasing it as a **verification assertion** ("assert every dim is unique on its key"), applied *at the phase where it matters*, over a design directive front-loaded into one mega-prompt. That's exactly why the six rules in Prompt 2 are written as checks rather than as instructions to "build it perfectly."
+
 ---
 
 ## Prompt 2 — Plan and build
