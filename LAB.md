@@ -113,6 +113,8 @@ Open `DISCOVERY.md` in your editor and skim it:
 
 > **Why this step matters:** The profiling gives Copilot (and you) a concrete understanding of the data landscape before making any design decisions. It catches naming collisions, schema drift, and encoding issues up front — problems that would otherwise surface as silent failures during bronze ingestion.
 
+> **Why so prescriptive here?** Profiling is a bounded, one-shot deliverable with a downstream consumer — `DISCOVERY.md` feeds Prompt 2 — so a tight output contract is cheap and worth it. Contrast this with the open-ended build in Prompt 2, where the *same* density of rules starts to cost you. See the *Specification vs. Agency* aside just below for why a heavily specified prompt is the right call for a fixed-format deliverable but a riskier one for a long, generative build.
+
 ---
 
 ## 🧠 Prompt Engineering Aside — Specification vs. Agency
